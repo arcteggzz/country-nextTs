@@ -1,8 +1,29 @@
 import Head from "next/head";
-import Image from "next/image";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+
 import styles from "@/styles/Home.module.scss";
 
-export default function Home() {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await fetch(`https://restcountries.com/v3.1/all`);
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      countries: data,
+    },
+  };
+};
+
+export default function Home({
+  countries,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log(countries);
   return (
     <>
       <Head>
@@ -31,116 +52,33 @@ export default function Home() {
             </select>
           </section>
           <section className={styles.countryView}>
-            <div className={styles.card}>
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={styles.image}
-                height={144}
-                width={144}
-                alt="country"
-              />
-              <div className={styles.textArea}>
-                <h2>Germany</h2>
-                <p>
-                  <span>Population:</span> 65803t430
-                </p>
-                <p>
-                  <span>Region:</span>
-                </p>
-                <p>
-                  <span>Capital:</span>
-                </p>
-              </div>
-            </div>
-            <div className={styles.card}>
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={styles.image}
-                height={144}
-                width={144}
-                alt="country"
-              />
-              <div className={styles.textArea}>
-                <h2>Germany</h2>
-                <p>
-                  <span>Population:</span> 65803t430
-                </p>
-                <p>
-                  <span>Region:</span>
-                </p>
-                <p>
-                  <span>Capital:</span>
-                </p>
-              </div>
-            </div>
-            <div className={styles.card}>
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={styles.image}
-                height={144}
-                width={144}
-                alt="country"
-              />
-              <div className={styles.textArea}>
-                <h2>Germany</h2>
-                <p>
-                  <span>Population:</span> 65803t430
-                </p>
-                <p>
-                  <span>Region:</span>
-                </p>
-                <p>
-                  <span>Capital:</span>
-                </p>
-              </div>
-            </div>
-            <div className={styles.card}>
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={styles.image}
-                height={144}
-                width={144}
-                alt="country"
-              />
-              <div className={styles.textArea}>
-                <h2>Germany</h2>
-                <p>
-                  <span>Population:</span> 65803t430
-                </p>
-                <p>
-                  <span>Region:</span>
-                </p>
-                <p>
-                  <span>Capital:</span>
-                </p>
-              </div>
-            </div>
-            <div className={styles.card}>
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={styles.image}
-                height={144}
-                width={144}
-                alt="country"
-              />
-              <div className={styles.textArea}>
-                <h2>Germany</h2>
-                <p>
-                  <span>Population:</span> 65803t430
-                </p>
-                <p>
-                  <span>Region:</span>
-                </p>
-                <p>
-                  <span>Capital:</span>
-                </p>
-              </div>
-            </div>
+            {countries.map((country: any) => {
+              return (
+                <div className={styles.card}>
+                  <img src={country.flags.png} alt={country.name.common} />
+                  {/* <Image
+                    priority
+                    src={country.flags.png}
+                    className={styles.image}
+                    height={144}
+                    width={144}
+                    alt={country.name.common}
+                  /> */}
+                  <div className={styles.textArea}>
+                    <h2>{country.name.official}</h2>
+                    <p>
+                      <span>Population:</span> {country.population}
+                    </p>
+                    <p>
+                      <span>Region: {country.region}</span>
+                    </p>
+                    <p>
+                      <span>Capital: {country.capital}</span>
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </section>
         </div>
       </main>
