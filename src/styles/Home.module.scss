@@ -1,6 +1,86 @@
 @import "./_variable.scss";
+@import "./functions";
 
-.header {
-  color: $VeryDarkBlue;
-  font-size: 16px;
+.main {
+  display: flex;
+  justify-content: center;
+  background: $VeryDarkBlueDarkModeBackground;
+  width: 100vw;
+  padding: pix-rem(40) 0;
+
+  .container {
+    width: pix-rem(960);
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: pix-rem(40);
+      width: 100%;
+
+      .searchBar {
+        padding: pix-rem(16) pix-rem(16);
+        width: 30%;
+        color: $White;
+        font-size: 12px;
+        background-color: $DarkBlue;
+        border-radius: 4px;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.443);
+        border: none;
+        outline: none;
+      }
+
+      .searchBar::placeholder {
+        color: $White;
+      }
+
+      select {
+        padding: pix-rem(16) pix-rem(16);
+        width: 12vw;
+        color: $White;
+        font-size: 12px;
+        background-color: $DarkBlue;
+        border-radius: 4px;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.443);
+        border: none;
+        outline: none;
+      }
+    }
+
+    .countryView {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      grid-gap: 30px;
+      width: 100%;
+
+      .card {
+        background-color: $DarkBlue;
+        max-width: 280px;
+        // min-width: 260px;
+        border-radius: 4px;
+        color: $White;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.443);
+        cursor: pointer;
+        transition: scale 0.1s ease-in-out;
+
+        .textArea {
+          padding: pix-rem(32);
+
+          h2 {
+            margin: 0 0 16px 0;
+          }
+
+          p {
+            margin: 6px 0;
+          }
+          span {
+            font-weight: 600;
+          }
+        }
+      }
+
+      .card:hover {
+        scale: 1.02;
+      }
+    }
+  }
 }

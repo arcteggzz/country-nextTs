@@ -1,0 +1,41 @@
+@import "../../styles/functions";
+@import "../../styles/variable";
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $DarkBlue;
+  width: 100vw;
+  font-size: 16px;
+  color: $White;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.443);
+
+  .container {
+    width: pix-rem(960);
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .homeLink {
+      color: $White;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: scale 0.15s ease-in-out;
+    }
+
+    .homeLink:hover {
+      scale: 1.05;
+    }
+
+    .mode {
+      p {
+        font-weight: 300;
+        font-size: 14px;
+      }
+    }
+  }
+}
